@@ -14,7 +14,11 @@ const setOnlineStatus = async (userId, status) => {
 
 const setupSocket = (server) => {
   const io = new Server(server, {
-    cors: { origin: [process.env.FRONT_END_URL] },
+    cors: {
+      origin: [process.env.FRONT_END_URL],
+      methods: ["GET", "POST", "PATCH", "DELETE"],
+      credentials: true,
+    },
   });
 
   io.on("connection", async (socket) => {
@@ -26,14 +30,6 @@ const setupSocket = (server) => {
       users.set(socket.id, userId);
       socket.emit("refetch");
     }
-
-    // socket.on("disconnect", async () => {
-    //   const userId = users.get(socket.id);
-    //   if (userId) {
-    //     // setOnlineStatus(userId, false);
-    //     socket.emit("userDisconnected");
-    //   }
-    // });
 
     socket.on("sendMessage", ({ sender }) => {
       io.emit("receiveMessage", {
