@@ -7,6 +7,7 @@ export const getServerPath = (req) => {
 export const sendCookie = (res, { name, value }, options) => {
   const cookieOptions = {
     httpOnly: true,
+    sameSite: "None",
     secure: process.env.NODE_ENV === "production",
     ...options,
   };
