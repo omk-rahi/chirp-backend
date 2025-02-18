@@ -14,7 +14,7 @@ const setOnlineStatus = async (userId, status) => {
 
 const setupSocket = (server) => {
   const io = new Server(server, {
-    cors: { origin: "*" },
+    cors: { origin: [process.env.FRONT_END_URL] },
   });
 
   io.on("connection", async (socket) => {
