@@ -15,7 +15,7 @@ import messagesRouter from "./routes/messages.routes.js";
 const app = express();
 app.use(
   cors({
-    origin: ["https://chirp-chat.netlify.app/"],
+    origin: [process.env.FRONT_END_URL],
     methods: ["GET", "POST", "PATCH", "DELETE"],
     credentials: true,
   })
