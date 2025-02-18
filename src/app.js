@@ -13,6 +13,13 @@ import userRouter from "./routes/users.routes.js";
 import messagesRouter from "./routes/messages.routes.js";
 
 const app = express();
+app.use(
+  cors({
+    origin: [process.env.FRONT_END_URL],
+    methods: ["GET", "POST", "PATCH", "DELETE"],
+    credentials: true,
+  })
+);
 
 app.use(morgan("dev"));
 app.use(helmet({ crossOriginResourcePolicy: false }));
@@ -21,14 +28,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use("/uploads", express.static("uploads"));
-
-app.use(
-  cors({
-    origin: [process.env.FRONT_END_URL],
-    methods: ["GET", "POST", "PATCH", "DELETE"],
-    credentials: true,
-  })
-);
 
 app.use("/api/auth/", authRouter);
 app.use("/api/friends/", friendsRouter);
