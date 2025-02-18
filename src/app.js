@@ -24,7 +24,7 @@ app.use("/uploads", express.static("uploads"));
 
 app.use(
   cors({
-    origin: [process.env.FRONT_END_URL],
+    origin: "*",
     methods: ["GET", "POST", "PATCH", "DELETE"],
     credentials: true,
   })
